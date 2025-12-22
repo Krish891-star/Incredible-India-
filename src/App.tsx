@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from "@/lib/auth";
 import PostAuthRedirect from "@/components/PostAuthRedirect";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import "./index.css"; // Add this import for proper styling
 import Index from "./pages/Index";
 import SimpleAuth from "./pages/SimpleAuth";
@@ -46,6 +47,7 @@ const App = () => {
               <Sonner />
               <BrowserRouter>
                 <PostAuthRedirect />
+                <PWAInstallPrompt />
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<SimpleAuth />} />

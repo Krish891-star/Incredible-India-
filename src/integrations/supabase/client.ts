@@ -5,15 +5,52 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+// Check if environment variables are available
+const isSupabaseConfigured = SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY;
+
+let supabaseClient;
+
+if (isSupabaseConfigured) {
+  supabaseClient = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    auth: {
+      storage: localStorage,
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,  // Critical for email verification
+      flowType: 'pkce',  // More secure flow
+    }
+  });
+} else {
+  // Create a mock client or throw a more descriptive error
+  console.warn('Supabase environment variables are not configured. Supabase functionality will be disabled.');
+  
+  // Create a mock client with minimal functionality for development
+  supabaseClient = {
+    from: () => ({
+      select: () => ({ data: [], error: null }),
+      insert: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      update: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      delete: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+    }),
+    auth: {
+      signUp: () => Promise.resolve({ data: { user: null, session: null }, error: { message: 'Supabase not configured' } }),
+      signInWithPassword: () => Promise.resolve({ data: { user: null, session: null }, error: { message: 'Supabase not configured' } }),
+      signInWithOAuth: () => { throw new Error('Supabase not configured'); },
+      signOut: () => Promise.resolve({ error: null }),
+      getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } }, error: null }),
+    },
+    storage: {
+      from: () => ({
+        upload: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+        download: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+      }),
+    },
+    // Add other necessary methods as needed
+  };
+}
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: {
-    storage: localStorage,
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,  // Critical for email verification
-    flowType: 'pkce',  // More secure flow
-  }
-});
+export const supabase = supabaseClient;

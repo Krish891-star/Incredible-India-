@@ -22,8 +22,11 @@ RUN npm install vite-plugin-pwa
 # Build the application
 RUN npm run build
 
+# Install serve to serve static files with proper SPA support
+RUN npm install -g serve
+
 # Expose port (Render uses $PORT)
 EXPOSE $PORT
 
-# Start the app using vite preview
-CMD ["sh", "-c", "npx vite preview --host --port ${PORT:-3000}"]
+# Start the app using serve with single-page app support
+CMD ["sh", "-c", "serve -s dist -l ${PORT:-3000}"]

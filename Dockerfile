@@ -1,5 +1,8 @@
-# Use Node.js 18 slim image as base
-FROM node:18-alpine
+# Use Node.js 20 slim image as base
+FROM node:20-alpine
+
+# Install build dependencies for alpine
+RUN apk add --no-cache python3 make g++
 
 # Set working directory
 WORKDIR /app

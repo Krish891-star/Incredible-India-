@@ -27,4 +27,4 @@ EXPOSE $PORT
 
 # Start the application using serve to serve the static build files
 RUN npm install -g serve
-CMD ["serve", "-s", "dist", "-l", "p:$PORT"]
+CMD ["serve", "-s", "dist", "-l", "$PORT"]

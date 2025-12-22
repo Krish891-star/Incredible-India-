@@ -16,6 +16,9 @@ RUN npm ci
 # Copy the rest of the application code
 COPY . .
 
+# Install vite-plugin-pwa explicitly to ensure it's available during build
+RUN npm install vite-plugin-pwa
+
 # Build the application
 RUN npm run build
 

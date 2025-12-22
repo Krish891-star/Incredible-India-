@@ -1,0 +1,7 @@
+project_id = "sbiwcdlahwuihheqsafh"
+
+[functions.generate-itinerary]
+verify_jwt = true
+
+[functions.estimate-route]
+verify_jwt = false

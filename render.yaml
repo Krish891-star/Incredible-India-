@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: incredible-india-pwa
+    env: docker
+    region: oregon  # Default region, you can change to other regions if needed
+    plan: free      # Use 'starter' or 'pro' for more resources
+    branch: main    # Deploy from main branch
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: VITE_SUPABASE_PROJECT_ID
+        sync: false  # Will be set in Render dashboard
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false  # Will be set in Render dashboard
+      - key: VITE_SUPABASE_URL
+        sync: false  # Will be set in Render dashboard
+      - key: VITE_SUPER_ADMIN_EMAIL
+        sync: false  # Will be set in Render dashboard
+      - key: SENDGRID_API_KEY
+        sync: false  # Optional: for email functionality
+      - key: SENDGRID_FROM_ADDRESS
+        sync: false  # Optional: for email functionality

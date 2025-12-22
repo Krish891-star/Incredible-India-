@@ -26,4 +26,4 @@ RUN npm run build
 EXPOSE $PORT
 
 # Start the app using vite preview
-CMD ["sh", "-c", "npx vite preview --host --port $PORT"]
+CMD ["sh", "-c", "npx vite preview --host --port ${PORT:-3000}"]

@@ -22,9 +22,8 @@ RUN npm install vite-plugin-pwa
 # Build the application
 RUN npm run build
 
-# Expose port
+# Expose port (Render uses $PORT)
 EXPOSE $PORT
 
-# Start the application using serve to serve the static build files
-RUN npm install -g serve
-CMD ["serve", "-s", "dist", "-l", "tcp://0.0.0.0:$PORT"]
+# Start the app using vite preview
+CMD ["sh", "-c", "npx vite preview --host --port $PORT"]

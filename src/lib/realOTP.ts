@@ -25,7 +25,8 @@ const getSecret = (key: string, category: string) => {
   };
   
   const envVar = envMap[key];
-  return envVar ? import.meta.env[envVar] : null;
+  // Safely access environment variables to avoid errors when they're undefined
+  return envVar ? (import.meta.env && import.meta.env[envVar] ? import.meta.env[envVar] : null) : null;
 };
 
 // Check if we're in development mode

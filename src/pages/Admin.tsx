@@ -115,7 +115,7 @@ export default function Admin() {
 
     try {
       // Check if user is the super admin
-      const superAdminEmail = import.meta.env.VITE_SUPER_ADMIN_EMAIL || 'krish141213@gmail.com';
+      const superAdminEmail = (import.meta.env && import.meta.env.VITE_SUPER_ADMIN_EMAIL) ? import.meta.env.VITE_SUPER_ADMIN_EMAIL : 'krish141213@gmail.com';
       const isAdminUser = user.role === 'admin' && user.email === superAdminEmail;
       setIsAdmin(isAdminUser);
       

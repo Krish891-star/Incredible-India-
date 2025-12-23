@@ -4,11 +4,18 @@
  */
 
 // Environment variables
+const SUPABASE_PROJECT_ID = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+// Check if environment variables are available
+const isSupabaseEnvConfigured = SUPABASE_PROJECT_ID && SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY;
+
 export const SUPABASE_CONFIG = {
   // Project settings
-  PROJECT_ID: import.meta.env.VITE_SUPABASE_PROJECT_ID,
-  PROJECT_URL: import.meta.env.VITE_SUPABASE_URL,
-  PUBLIC_KEY: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+  PROJECT_ID: isSupabaseEnvConfigured ? SUPABASE_PROJECT_ID : null,
+  PROJECT_URL: isSupabaseEnvConfigured ? SUPABASE_URL : null,
+  PUBLIC_KEY: isSupabaseEnvConfigured ? SUPABASE_PUBLISHABLE_KEY : null,
   
   // Storage settings
   STORAGE: {

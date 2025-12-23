@@ -405,7 +405,7 @@ Please log in to the admin panel to review and verify this tour guide.
 
 Best regards,
 The Incredible India Tourism System
-    `;
+    `.trim();
     
     // Use the super admin email from environment variables or default
     const adminEmail = (import.meta.env && import.meta.env.VITE_SUPER_ADMIN_EMAIL) ? import.meta.env.VITE_SUPER_ADMIN_EMAIL : 'krish141213@gmail.com';

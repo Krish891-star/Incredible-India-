@@ -88,7 +88,7 @@ export default defineConfig(({ mode }) => ({
         ]
       }
     }),
-    mode === "development" && componentTagger(),
+    mode === "development" && process.env.NODE_ENV !== 'production' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
